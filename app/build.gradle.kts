@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.shareasqr"
+        applicationId = "com.github.mikulash.shareasqr"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
