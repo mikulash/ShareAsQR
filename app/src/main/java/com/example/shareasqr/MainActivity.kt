@@ -118,7 +118,7 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
         if (inputText.isNotEmpty()) {
             qrCodeBitmap = generateQRCode(inputText)
             if (qrCodeBitmap == null) {
-                Log.e("com.example.shareasqr.QRCodeApp", "Failed to generate QR Code.")
+                Log.e("com.github.mikulash.shareasqr", "Failed to generate QR Code.")
             }
         }
     }
@@ -175,7 +175,7 @@ fun generateQRCode(text: String): Bitmap? {
         val barcodeEncoder = BarcodeEncoder()
         barcodeEncoder.encodeBitmap(text, BarcodeFormat.QR_CODE, 400, 400)
     } catch (e: Exception) {
-        Log.e("com.example.shareasqr.QRCodeApp", "Error generating QR Code", e)
+        Log.e("com.github.mikulash.shareasqr", "Error generating QR Code", e)
         null
     }
 }
