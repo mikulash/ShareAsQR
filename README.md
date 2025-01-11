@@ -20,10 +20,10 @@ This app does **not** include QR code scanning functionality because it's unnece
 
 ### Screenshots:
 #### Share custom text
-<img src="assets/Screenshot_customText.png" alt="Share custom text" width="200"/>
+<img src="assets/Screenshot_customText.png" alt="Share custom text" width="300"/>
 
 #### Share generated QR as image
-<img src="assets/Screenshot_share_qr_image.png" alt="Share generated QR as image" width="200"/>
+<img src="assets/Screenshot_share_qr_image.png" alt="Share generated QR as image" width="300"/>
 
 #### Share text/links from other apps
-<img src="assets/Screenshot_from_other_apps.png" alt="Share text/links from other apps" width="200"/>
+<img src="assets/Screenshot_from_other_apps.png" alt="Share text/links from other apps" width="300"/>
