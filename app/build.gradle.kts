@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.shareasqr"
+    namespace = "mikulash.shareasqr"
     compileSdk = 35
 
     defaultConfig {

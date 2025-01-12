@@ -1,4 +1,4 @@
-package com.example.shareasqr
+package mikulash.shareasqr
 
 import android.content.Intent
 import android.graphics.Bitmap

@@ -1,4 +1,4 @@
-package com.example.shareasqr.ui.theme
+package mikulash.shareasqr.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
