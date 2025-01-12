@@ -1,0 +1,8 @@
+*.kt text eol=lf
+*.java text eol=lf
+*.xml text eol=lf
+*.gradle text eol=lf
+*.gradle.kts text eol=lf
+*.rb text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
