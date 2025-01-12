@@ -3,5 +3,6 @@ as simple and efficient as possible. Unlike other apps, ShareAsQR focuses
 solely on QR code generation, keeping the app small and fast.
 
 Features:
+
 * QR Code Generation
 * Sharing generated QR images

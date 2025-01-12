@@ -1,0 +1,1 @@
+A lightweight, focused Android app for quick QR code generation. Generate and share QR codes instantly without any unnecessary features or bloat. Simple, fast, and efficient.
