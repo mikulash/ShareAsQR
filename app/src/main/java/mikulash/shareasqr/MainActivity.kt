@@ -26,6 +26,8 @@ import android.util.Log
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import androidx.compose.ui.platform.LocalConfiguration
+import android.content.res.Configuration
 
 class MainActivity : ComponentActivity() {
 
@@ -142,69 +144,159 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
         textFieldScrollState.animateScrollTo(textFieldScrollState.maxValue)
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()) // Make the entire column scrollable
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top // Changed from Center to Top
-    ) {
-        // Add some top spacing to center content when it's small
-        Spacer(modifier = Modifier.height(32.dp))
+    val configuration = LocalConfiguration.current
 
-        // Input Field with height constraint
-        BasicTextField(
-            value = inputText,
-            onValueChange = { inputText = it },
+    if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 56.dp, max = 200.dp) // Constrain height with min and max
-                .padding(horizontal = 16.dp),
-            decorationBox = { innerTextField ->
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            // Left side: Input
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+                Spacer(modifier = Modifier.height(32.dp))
+
+                BasicTextField(
+                    value = inputText,
+                    onValueChange = { inputText = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 56.dp, max = 200.dp)
+                        .padding(horizontal = 16.dp),
+                    decorationBox = { innerTextField ->
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                                .verticalScroll(textFieldScrollState),
+                            contentAlignment = Alignment.TopStart
+                        ) {
+                            if (inputText.isEmpty()) {
+                                Text(
+                                    text = "Enter text to generate QR Code",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                            innerTextField()
+                        }
+                    }
+                )
+            }
+
+            // Right side: QR and Share
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+                Spacer(modifier = Modifier.height(32.dp))
+
+                qrCodeBitmap?.let { bitmap ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            bitmap = bitmap.asImageBitmap(),
+                            contentDescription = "QR Code",
+                            modifier = Modifier
+                                .fillMaxWidth(0.9f)
+                                .fillMaxHeight(0.9f)
+                                .aspectRatio(1f, matchHeightConstraintsFirst = true)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Button(
+                        onClick = { onShare(bitmap) },
+                        modifier = Modifier.fillMaxWidth(0.6f)
+                    ) {
+                        Text(text = "Share QR Code")
+                    }
+                }
+            }
+        }
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            Spacer(modifier = Modifier.height(32.dp))
+
+            BasicTextField(
+                value = inputText,
+                onValueChange = { inputText = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 56.dp, max = 200.dp)
+                    .padding(horizontal = 16.dp),
+                decorationBox = { innerTextField ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .verticalScroll(textFieldScrollState),
+                        contentAlignment = Alignment.TopStart
+                    ) {
+                        if (inputText.isEmpty()) {
+                            Text(
+                                text = "Enter text to generate QR Code",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        innerTextField()
+                    }
+                }
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            qrCodeBitmap?.let { bitmap ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
-                        .verticalScroll(textFieldScrollState), // Use dedicated scroll state
-                    contentAlignment = Alignment.TopStart // Changed from Center to TopStart for better text alignment
+                        .weight(1f),
+                    contentAlignment = Alignment.Center
                 ) {
-                    if (inputText.isEmpty()) {
-                        Text(
-                            text = "Enter text to generate QR Code",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                    innerTextField()
+                    Image(
+                        bitmap = bitmap.asImageBitmap(),
+                        contentDescription = "QR Code",
+                        modifier = Modifier
+                            .fillMaxWidth(0.9f)
+                            .fillMaxHeight(0.9f)
+                            .aspectRatio(1f, matchHeightConstraintsFirst = true)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = { onShare(bitmap) },
+                    modifier = Modifier.fillMaxWidth(0.6f)
+                ) {
+                    Text(text = "Share QR Code")
                 }
             }
-        )
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Display the QR code if generated
-        qrCodeBitmap?.let { bitmap ->
-            Image(
-                bitmap = bitmap.asImageBitmap(),
-                contentDescription = "QR Code",
-                modifier = Modifier
-                    .fillMaxWidth(0.8f) // Reduced from 0.9f for better margins
-                    .aspectRatio(1f) // Maintain a 1:1 aspect ratio
-            )
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Share button
-            Button(
-                onClick = { onShare(bitmap) },
-                modifier = Modifier.fillMaxWidth(0.6f) // Give button consistent width
-            ) {
-                Text(text = "Share QR Code")
-            }
+            Spacer(modifier = Modifier.height(32.dp))
         }
-
-        // Add bottom spacing
-        Spacer(modifier = Modifier.height(32.dp))
     }
 }
 
