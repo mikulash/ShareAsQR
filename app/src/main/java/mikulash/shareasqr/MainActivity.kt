@@ -13,6 +13,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
@@ -112,9 +113,17 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
-    var inputText by remember { mutableStateOf(sharedText ?: "") }
+    // Use rememberSaveable to persist state across configuration changes (like orientation)
+    var inputText by rememberSaveable { mutableStateOf(sharedText ?: "") }
     var qrCodeBitmap by remember { mutableStateOf<Bitmap?>(null) }
     val textFieldScrollState = rememberScrollState()
+
+    // Update inputText if sharedText changes (e.g., new share intent)
+    LaunchedEffect(sharedText) {
+        if (!sharedText.isNullOrEmpty() && inputText != sharedText) {
+            inputText = sharedText
+        }
+    }
 
     // Automatically generate the QR code whenever the input text changes
     LaunchedEffect(inputText) {
