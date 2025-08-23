@@ -153,7 +153,7 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
                 .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Left side: Input
+            // Left side: Input and Share Button
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -189,9 +189,21 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
                         }
                     }
                 )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Share button moved here under the input text
+                qrCodeBitmap?.let { bitmap ->
+                    Button(
+                        onClick = { onShare(bitmap) },
+                        modifier = Modifier.fillMaxWidth(0.8f)
+                    ) {
+                        Text(text = "Share QR Code")
+                    }
+                }
             }
 
-            // Right side: QR and Share
+            // Right side: QR Code only
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -215,15 +227,6 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
                                 .fillMaxWidth(0.9f)
                                 .aspectRatio(1f)
                         )
-                    }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Button(
-                        onClick = { onShare(bitmap) },
-                        modifier = Modifier.fillMaxWidth(0.6f)
-                    ) {
-                        Text(text = "Share QR Code")
                     }
                 }
             }
