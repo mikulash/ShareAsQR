@@ -213,8 +213,7 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
                             contentDescription = "QR Code",
                             modifier = Modifier
                                 .fillMaxWidth(0.9f)
-                                .fillMaxHeight(0.9f)
-                                .aspectRatio(1f, matchHeightConstraintsFirst = true)
+                                .aspectRatio(1f)
                         )
                     }
 
@@ -280,8 +279,7 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
                         contentDescription = "QR Code",
                         modifier = Modifier
                             .fillMaxWidth(0.9f)
-                            .fillMaxHeight(0.9f)
-                            .aspectRatio(1f, matchHeightConstraintsFirst = true)
+                            .aspectRatio(1f) // Removed matchHeightConstraintsFirst = true
                     )
                 }
 
