@@ -28,7 +28,9 @@ import java.io.FileOutputStream
 import java.io.IOException
 import androidx.compose.ui.platform.LocalConfiguration
 import android.content.res.Configuration
-
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.ui.platform.LocalFocusManager
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,6 +121,7 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
     var inputText by rememberSaveable { mutableStateOf(sharedText ?: "") }
     var qrCodeBitmap by remember { mutableStateOf<Bitmap?>(null) }
     val textFieldScrollState = rememberScrollState()
+    val focusManager = LocalFocusManager.current
 
     // Update inputText if sharedText changes (e.g., new share intent)
     LaunchedEffect(sharedText) {
@@ -150,7 +153,13 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(16.dp)
+                .clickable(
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() }
+                ) {
+                    focusManager.clearFocus()
+                },
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // Left side: Input and Share Button
@@ -169,7 +178,13 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 56.dp, max = 200.dp)
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp)
+                        .clickable(
+                            indication = null,
+                            interactionSource = remember { MutableInteractionSource() }
+                        ) {
+                            // Prevent clearing focus when clicking on text field
+                        },
                     decorationBox = { innerTextField ->
                         Box(
                             modifier = Modifier
@@ -235,7 +250,13 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(16.dp)
+                .clickable(
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() }
+                ) {
+                    focusManager.clearFocus()
+                },
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -247,7 +268,13 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(min = 56.dp, max = 200.dp)
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 16.dp)
+                    .clickable(
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ) {
+                        // Prevent clearing focus when clicking on text field
+                    },
                 decorationBox = { innerTextField ->
                     Box(
                         modifier = Modifier
@@ -282,7 +309,7 @@ fun QRCodeApp(sharedText: String? = null, onShare: (Bitmap?) -> Unit) {
                         contentDescription = "QR Code",
                         modifier = Modifier
                             .fillMaxWidth(0.9f)
-                            .aspectRatio(1f) // Removed matchHeightConstraintsFirst = true
+                            .aspectRatio(1f)
                     )
                 }
 
