@@ -1,11 +1,15 @@
 # ShareAsQR
 
-Get it here
-[![IzzyOnDroid Version](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/com.github.mikulash.shareasqr)](https://apt.izzysoft.de/fdroid/index/apk/com.github.mikulash.shareasqr)
-or [here](https://github.com/mikulash/ShareAsQR/releases) 
-
----
 **ShareAsQR** is a lightweight Android app designed to make generating QR codes as simple and efficient as possible. Unlike other apps, ShareAsQR focuses solely on QR code generation, keeping the app small and fast.
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.github.mikulash.shareasqr/)
+[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
+     alt="Get it on IzzyOnDroid"
+     height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.github.mikulash.shareasqr)
+
+Or download the latest APK from the [Releases Section](https://github.com/mikulash/ShareAsQR/releases/latest).
 
 ### Features:
 - **QR Code Generation**: Quickly generate QR codes from any text input or shared content from other apps.
