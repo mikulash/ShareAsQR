@@ -23,10 +23,6 @@ This app does **not** include QR code scanning functionality because it's unnece
 2. You can also share text from other apps (e.g., a browser, notes, or messaging apps) and the app will automatically generate a QR code.
 3. Tap the "Share QR Code" button to share the QR code image with others.
 
-### Why Use ShareAsQR?
-- **Lightweight**: The app only generates QR codes, so it stays small and efficient.
-- **No Bloat**: No unnecessary features like scanning since Android's native camera can already handle that.
-
 ### Screenshots:
 #### Share custom text
 <img src="assets/Screenshot_customText.png" alt="Share custom text" width="300"/>
